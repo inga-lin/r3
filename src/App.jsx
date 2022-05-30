@@ -1,6 +1,3 @@
-
-import './App.css';
-
 import { createContext, useState, useContext, useEffect } from "react";
 import {
   Routes,
@@ -14,19 +11,7 @@ import {
 } from "react-router-dom";
 import { login, logout, authConfig } from './Functions/auth';
 import axios from 'axios';
-/*import { createContext, useState, useContext, useEffect } from "react";
-import {
-  Routes,
-  Route,
-  Link,
-  useNavigate,
-  useLocation,
-  Navigate,
-  Outlet,
-  BrowserRouter
-} from "react-router-dom";
-import { login, logout, authConfig } from './Functions/auth';
-import axios from 'axios';*/
+
 function App() {
 
   useEffect(() => {
@@ -46,7 +31,7 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/logout" element={<LogoutPage />} />
             <Route
-              path="/users-manager"
+              path="/admin"
               element={
                 <RequireAuth>
                   <AdminPage />
@@ -69,7 +54,7 @@ function Layout() {
           <Link to="/">Public Page</Link>
         </li>
         <li>
-          <Link to="/users-manager">Admin Page</Link>
+          <Link to="/admin">Admin Page</Link>
         </li>
       </ul>
       <Outlet />
@@ -109,7 +94,7 @@ function LoginPage() {
         console.log(res.data);
         if ('ok' === res.data.msg) {
           login(res.data.key);
-          navigate('/users-manager/', { replace: true });
+          navigate('/admin/', { replace: true });
         }
       })
   }
@@ -132,7 +117,7 @@ function LogoutPage() {
 
 function PublicPage() {
   useEffect(() => {
-    axios.get('http://localhost:3005/users-manager/hello', authConfig())
+    axios.get('http://localhost:3005/admin/hello', authConfig())
       .then(res => {
         console.log(res)
       })
